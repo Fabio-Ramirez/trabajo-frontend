@@ -24,6 +24,12 @@ export const Lista = () => {
                 {usuarios.map((usuario) => (
                     <li key={usuario.id}>
                         {usuario.username} - {usuario.email}
+                        <ul>
+                            {usuario.publicaciones?.map((publicacion) => (
+                                <li key={publicacion._id}>
+                                    Publicaciones: {publicacion.nombrePublicacion}                                </li>
+                            ))}
+                        </ul>
                     </li>
                 ))}
             </ul>
