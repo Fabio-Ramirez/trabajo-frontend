@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
+
 import RegisterUser from './registerUser';
 
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -18,12 +22,21 @@ const Login = () => {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Aquí puedes manejar la lógica de autenticación, por ejemplo, enviar los datos a un servidor
-        console.log('Correo electrónico:', email);
-        console.log('Contraseña:', password);
-    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log({ email, password });
+        axios.post('http://localhost:3001/comercio/auth', { email, password })
+            .then((resp) => {
+                alert('Datos Cargados con exito!!');
+                console.log(resp.data.id);
+                navigate(`/userPerfil/${resp.data.id}`);
+            })
+            .catch((error) => {
+                console.log("error: ", error.response?.data?.message);
+                alert('!!Error de credenciales ');
+
+            })
+    }
 
     const isValidEmail = (email) => {
         // Expresión regular para verificar el formato del correo electrónico

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
 
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
@@ -9,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 
 import Login from './login';
 
@@ -19,7 +17,7 @@ const RegisterUser = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [rol, setRol] = useState('');
+  const [rol, setRol] = useState('estandar');
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -108,13 +106,14 @@ const RegisterUser = (props) => {
         </label>*/}
         <br />
         <br />
-        <Button type='submit' variant="contained" color="primary">
-          Enviar
-        </Button>
-        <Button type='submit' variant="contained" color="secondary">
-          <Link className="nav-link" to="/">Cancelar</Link>
-
-        </Button>
+        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+          <Button type='submit' variant="contained" color="primary">
+            Enviar
+          </Button>
+          <Button className="cancelButton" type='submit' variant="contained" color="secondary">
+            <Link className="nav-link" to="/">Cancelar</Link>
+          </Button>
+        </div>
 
 
 

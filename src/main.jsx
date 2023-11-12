@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
-import { Lista } from './viewData';
-import { ListaPublicaciones } from './publicacion';
-import { PublicacionForm } from './publicacionApp';
 import Login from './components/users/login';
 import RegisterUser from './components/users/registerUser';
+import UserPerfil from './components/perfil/userPerfil';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -17,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/registerUser" element={<RegisterUser />} />
+                    <Route path="/userPerfil/:userId" element={<UserPerfil />} />
                     {/* Otras rutas y componentes */}
                 </Routes>
             </Router>
