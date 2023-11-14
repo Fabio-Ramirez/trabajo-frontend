@@ -6,6 +6,7 @@ import './style.css';
 import Login from './components/users/login';
 import RegisterUser from './components/users/registerUser';
 import UserPerfil from './components/perfil/userPerfil';
+import EditarPerfil from './components/perfil/editarPerfil';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path="/" element={<Login />} />
                     <Route path="/registerUser" element={<RegisterUser />} />
                     <Route path="/userPerfil/:userId" element={<UserPerfil />} />
+                    <Route path="/editarUser/:userId" element={<EditarPerfil />} />
                     {/* Otras rutas y componentes */}
                 </Routes>
             </Router>

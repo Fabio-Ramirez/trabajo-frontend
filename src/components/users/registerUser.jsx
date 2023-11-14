@@ -18,12 +18,13 @@ const RegisterUser = (props) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [rol, setRol] = useState('estandar');
+  const [imagenUrl, setImagenUrl] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ email, password, username, rol });
-    axios.post('http://localhost:3001/comercio/users', { email, password, username, rol })
+    console.log({ email, password, username, rol, imagenUrl });
+    axios.post('http://localhost:3001/comercio/users', { email, password, username, rol, imagenUrl })
       .then((resp) => {
         alert('Datos Cargados con exito!!');
         console.log(resp);
