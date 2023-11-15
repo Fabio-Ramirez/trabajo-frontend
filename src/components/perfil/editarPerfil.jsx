@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -11,12 +12,40 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 const EditarUser = (props) => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [rol, setRol] = useState('estandar');
-    const [imagenUrl, setImagenUrl] = useState('');
     const { userId } = useParams();
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/comercio/user/${userId}`);
+                console.log(response.data);
+                setUserData(response.data);
+            } catch (error) {
+                console.error('Error al obtener los datos del usuario:', error);
+            }
+        };
+
+        fetchData(); // Llama a la función async
+    }, [userId]);
+
+    const [username, setUsername] = useState(userData?.username || '');
+    const [password, setPassword] = useState(userData?.password || '');
+    const [email, setEmail] = useState(userData?.email || '');
+    const [rol, setRol] = useState(userData?.rol || 'estandar');
+    const [imagenUrl, setImagenUrl] = useState(userData?.imagenUrl || '');
+
+    useEffect(() => {
+        // Se ejecuta cuando userData cambia
+        if (userData) {
+            setUsername(userData.username || '');
+            setPassword(userData.password || '');
+            setEmail(userData.email || '');
+            setRol(userData.rol || 'estandar');
+            setImagenUrl(userData.imagenUrl || '');
+        }
+    }, [userData]);
+
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -26,7 +55,7 @@ const EditarUser = (props) => {
             .then((resp) => {
                 alert('Datos Actualizados con exito!!');
                 console.log(resp);
-                navigate('/userPerfil/:userId');
+                navigate(`/userPerfil/${userId}`);
             })
             .catch((error) => {
                 console.log("error: ", error.response.data.message);
@@ -52,7 +81,6 @@ const EditarUser = (props) => {
                     fullWidth
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    
                     inputProps={{
                         pattern: '^[^\s@]+@[^\s@]+\.[^\s@]+$', // Expresión regular para el formato del correo electrónico
                     }}
@@ -62,19 +90,7 @@ const EditarUser = (props) => {
                 <br />
                 <br />
                 <br />
-                <TextField
-                    id="standard-basic"
-                    label="Password"
-                    variant="standard"
-                    fullWidth
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    
-                />
-                <br />
-                <br />
-                <br />
+                
                 <TextField
                     id="standard-basic"
                     label="Username"
@@ -82,7 +98,7 @@ const EditarUser = (props) => {
                     fullWidth
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
-                    
+
                 />
 
                 <br />

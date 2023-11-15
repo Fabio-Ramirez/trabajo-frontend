@@ -28,7 +28,9 @@ const Login = () => {
         axios.post('http://localhost:3001/comercio/auth', { email, password })
             .then((resp) => {
                 alert('Datos Cargados con exito!!');
-                console.log(resp.data.id);
+                console.log(resp.data.token);
+                // Almacena el token en localStorage
+                localStorage.setItem('token', resp.data.token);
                 navigate(`/userPerfil/${resp.data.id}`);
             })
             .catch((error) => {

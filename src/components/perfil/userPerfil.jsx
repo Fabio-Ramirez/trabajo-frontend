@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../../axiosConfig';
 import { useParams } from 'react-router-dom';
 import { Typography, Card, CardContent, CardMedia, Avatar, Box } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import sinImagen from '../../assets/sin-imagen1.png';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 const UserPerfil = () => {
     const { userId } = useParams();
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState();
 
     useEffect(() => {
         // Hacer la solicitud para obtener los datos del usuario basado en el userId
         axios.get(`http://localhost:3001/comercio/user/${userId}`)
             .then((resp) => {
-                console.log(resp);
+                console.log(resp.data);
                 setUserData(resp.data);
             })
             .catch((error) => {
@@ -55,8 +54,11 @@ const UserPerfil = () => {
                 </Card>
             </div>
             <div>
-                <Button variant="contained" color="primary"  style={{ position: 'absolute', right: '35%' }}>
-                    <Link className="nav-link" to={`/editarUser/${userId}`}>
+                <Button variant="contained" color="primary" style={{ position: 'absolute', right: '35%' }}>
+                    <Link className="nav-link"
+                        to={{
+                            pathname: `/editarUser/${userId}`
+                        }}>
                         Editar datos
                     </Link>
                 </Button>
