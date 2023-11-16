@@ -7,6 +7,7 @@ import Login from './components/users/login';
 import RegisterUser from './components/users/registerUser';
 import UserPerfil from './components/perfil/userPerfil';
 import EditarPerfil from './components/perfil/editarPerfil';
+import Usuarios from './components/usuarios/usuarios'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path="/registerUser" element={<RegisterUser />} />
                     <Route path="/userPerfil/:userId" element={<UserPerfil />} />
                     <Route path="/editarUser/:userId" element={<EditarPerfil />} />
+                    <Route path="/allUsers" element={<Usuarios />} />
                     {/* Otras rutas y componentes */}
                 </Routes>
             </Router>

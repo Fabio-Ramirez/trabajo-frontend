@@ -30,7 +30,6 @@ const EditarUser = (props) => {
     }, [userId]);
 
     const [username, setUsername] = useState(userData?.username || '');
-    const [password, setPassword] = useState(userData?.password || '');
     const [email, setEmail] = useState(userData?.email || '');
     const [rol, setRol] = useState(userData?.rol || 'estandar');
     const [imagenUrl, setImagenUrl] = useState(userData?.imagenUrl || '');
@@ -39,7 +38,6 @@ const EditarUser = (props) => {
         // Se ejecuta cuando userData cambia
         if (userData) {
             setUsername(userData.username || '');
-            setPassword(userData.password || '');
             setEmail(userData.email || '');
             setRol(userData.rol || 'estandar');
             setImagenUrl(userData.imagenUrl || '');
@@ -50,8 +48,8 @@ const EditarUser = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log({ email, password, username, rol, imagenUrl });
-        axios.put(`http://localhost:3001/comercio/updateUser/${userId}`, { email, password, username, rol, imagenUrl })
+        console.log({ email, username, rol, imagenUrl });
+        axios.put(`http://localhost:3001/comercio/updateUser/${userId}`, { email, username, rol, imagenUrl })
             .then((resp) => {
                 alert('Datos Actualizados con exito!!');
                 console.log(resp);
@@ -90,7 +88,7 @@ const EditarUser = (props) => {
                 <br />
                 <br />
                 <br />
-                
+
                 <TextField
                     id="standard-basic"
                     label="Username"
